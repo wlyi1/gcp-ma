@@ -40,7 +40,7 @@ id_list = files_id['CODE'].tolist()
 
 for df in id_list:
     ID = files_id[files_id['CODE'] == df].index.values + 11
-    globals() [f'query_{df}'] = run_query(f"""select pH, DO, Cond, Turb, Temp, NH4,NO3,ORP,COD,BOD,TSS,logTime as NH3_N,logDate, datepart(hour, logTime) as logTime from 'Ma.Sensor' where Station={int(ID)} order by logDate,logTime"""
+    globals() [f'query_{df}'] = run_query(f"""select pH, DO, Cond, Turb, Temp, NH4,NO3,ORP,COD,BOD,TSS,logTime as NH3_N,logDate, datepart(hour, logTime) as logTime from 'Ma.Sensor' where Station={int(ID)} order by logDate,logTime""")
     globals() [f'{df}'] = pd.DataFrame.from_dict(globals() [f'query_{df}'])
     globals() [f"{df}['logDate']"] = pd.to_datetime(globals() [f'{df}']['logDate']).dt.date
     
