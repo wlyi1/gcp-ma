@@ -3,6 +3,7 @@
 import streamlit as st
 from google.oauth2 import service_account
 from google.cloud import bigquery
+import pandas as pd 
 
 # Create API client.
 credentials = service_account.Credentials.from_service_account_info(
@@ -21,8 +22,9 @@ def run_query(query):
     return rows
 
 rows = run_query("SELECT * FROM `Ma.Sensor` LIMIT 10")
-
+df = pd.read_gbq("SELECT * FROM 'Ma.Sensor' LIMIT 10")
 # Print results.
+st.write(df)
 st.write("Some wise words:")
 st.write(rows)
 for row in rows:
