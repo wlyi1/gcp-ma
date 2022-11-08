@@ -33,6 +33,10 @@ df = pd.DataFrame.from_dict(rows)
 st.write("Some wise words:")
 #st.write(df)
 
+run = client.query("SELECT * FROM 'Ma.Sensor' LIMIT 10")
+df = run.to_dataframe()
+st.write(df)
+
 table_id = 'onlimo.Ma.Record'
 rows_to_insert = [{u'Nama':'Waliy', u'Text':'Sukses'},]
 but = st.button('add data')
