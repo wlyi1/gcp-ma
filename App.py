@@ -24,6 +24,6 @@ rows = run_query("SELECT * FROM `MA.Sensor` LIMIT 10")
 
 # Print results.
 st.write("Some wise words:")
-st.write(rows')
+st.write(rows)
 for row in rows:
     st.write("✍️ " + row['DO'])
