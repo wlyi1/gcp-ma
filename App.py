@@ -3,7 +3,7 @@
 import streamlit as st 
 from google.oauth2 import service_account
 from google.cloud import bigquery
-import pandas 
+import pandas as pd
 import pandas_gbq
 
 # Create API client.
@@ -23,10 +23,11 @@ def run_query(query):
     return rows
 
 rows = run_query("SELECT * FROM `Ma.Sensor` LIMIT 10")
-df = pandas.read_gbq("SELECT * FROM 'Ma.Sensor' LIMIT 10", project_id = "onlimo", credentials = credentials)
+#df = pandas.read_gbq("SELECT * FROM 'Ma.Sensor' LIMIT 10", project_id = "onlimo", credentials = credentials)
 # Print results.
-st.write(df)
+#st.write(df)
+df = pd.DataFrame.from_dict(rows)
 st.write("Some wise words:")
-st.write(rows)
+st.write(df)
 for row in rows:
     st.write("✍️ " + row['DO'])
