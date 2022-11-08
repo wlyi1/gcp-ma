@@ -34,7 +34,7 @@ st.write("Some wise words:")
 #st.write(df)
 
 table_id = 'onlimo.Ma.Record'
-rows_to_insert = [{u'Nama':'Waliy', u'Text':'Sukses'}]
+rows_to_insert = [{u'Nama':'Waliy', u'Text':'Sukses'},]
 but = st.button('add data')
 if but:
     add = client.insert_rows_json(table_id, rows_to_insert)
