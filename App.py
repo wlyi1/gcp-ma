@@ -23,7 +23,7 @@ def run_query(query):
     return rows
 
 rows = run_query("SELECT * FROM `Ma.Sensor` LIMIT 10")
-df = pandas_gbq.read_gbq("SELECT * FROM 'Ma.Sensor' LIMIT 10", credentials = credentials)
+df = pandas_gbq.read_gbq("SELECT * FROM 'Ma.Sensor' LIMIT 10", "onlimo", credentials = credentials)
 # Print results.
 st.write(df)
 st.write("Some wise words:")
