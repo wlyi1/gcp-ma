@@ -20,7 +20,7 @@ def run_query(query):
     rows = [dict(row) for row in rows_raw]
     return rows
 
-rows = run_query("SELECT * FROM `MA.Sensor` LIMIT 10")
+rows = run_query("SELECT * FROM `Ma.Sensor` LIMIT 10")
 
 # Print results.
 st.write("Some wise words:")
