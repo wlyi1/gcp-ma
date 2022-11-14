@@ -32,7 +32,7 @@ id_list = files_id['CODE'].tolist()
 #st.write(df)
 
 for df in id_list[:10]:
-    ID = files_id[files_id['CODE']==i].index.values+11
+    ID = files_id[files_id['CODE']==df].index.values+11
     globals()[f'query_{df}']=pandas_gbq.read_gbq(f'SELECT * FROM Ma.Sensor where Station={int(ID)} LIMIT 10', credentials=credentials)
     globals() [f"{df}['logDate']"] = pd.to_datetime(globals() [f'{df}']['logDate']).dt.date
     
