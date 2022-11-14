@@ -25,7 +25,7 @@ def run_query(query):
 
 rows = run_query("SELECT * FROM `Ma.Sensor` where Station = 18")
 
-df = pandas_gbq.read_gbq("SELECT * FROM 'Ma.Sensor' LIMIT 10", project_id = "onlimo", credentials = credentials)
+df = pandas_gbq.read_gbq("SELECT * FROM Ma.Sensor LIMIT 10", credentials = credentials)
 # Print results.
 st.write(df)
 
