@@ -33,7 +33,7 @@ st.write(df)
 
 for i in id_list[:10]:
     ID = files_id[files_id['CODE']==i].index.values+11
-    globals()[f'query_{i}']=pandas_qbg.read_gbq(f'select * from Ma.Sensor LIMIT 10 where Station={int(ID)}')
+    globals()[f'query_{i}']=pandas_qbg.read_gbq(f'SELECT * FROM Ma.Sensor LIMIT 10 where Station={int(ID)}', credentials=credentials)
 
 def status_onlimo(id_ol):
     st.header(id_ol)
