@@ -43,7 +43,7 @@ for df in id_list[:10]:
     globals() [f'NH4_{df}'] = [x for x in globals()[f'{df}'][-24:]['NH4']]
     globals() [f'ab_NH4_{df}'] = sum(map(lambda x : x>100, globals()[f'NH4_{df}']))
     globals() [f'NO3_{df}'] = [x for x in globals()[f'{df}'][-24:]['NO3']]
-df loop    globals() [f'ab_NO3_{df}'] = sum(map(lambda x : x>100, globals()[f'NO3_{df}']))
+    globals() [f'ab_NO3_{df}'] = sum(map(lambda x : x>100, globals()[f'NO3_{df}']))
     globals() [f'tgl_{df}'] = globals()[f'{df}']['logDate'].max()
 
 def status_onlimo(id_ol):
