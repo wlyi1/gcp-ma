@@ -27,17 +27,50 @@ rows = run_query("SELECT * FROM `Ma.Sensor` where Station = 18")
 files_id = pd.read_csv('id_stasiun.csv')
 id_list = files_id['CODE'].tolist()
 
-df = pandas_gbq.read_gbq("SELECT * FROM Ma.Sensor LIMIT 10", credentials = credentials)
+#df = pandas_gbq.read_gbq("SELECT * FROM Ma.Sensor LIMIT 10", credentials = credentials)
 # Print results.
-st.write(df)
+#st.write(df)
 
-for i in id_list[:10]:
+for df in id_list[:10]:
     ID = files_id[files_id['CODE']==i].index.values+11
-    globals()[f'query_{i}']=pandas_gbq.read_gbq(f'SELECT * FROM Ma.Sensor where Station={int(ID)} LIMIT 10', credentials=credentials)
+    globals()[f'query_{df}']=pandas_gbq.read_gbq(f'SELECT * FROM Ma.Sensor where Station={int(ID)} LIMIT 10', credentials=credentials)
+    globals() [f"{df}['logDate']"] = pd.to_datetime(globals() [f'{df}']['logDate']).dt.date
+    
+    globals() [f'pH_{df}'] = [x for x in globals()[f'{df}'][-24:]['pH']]
+    globals() [f'ab_pH_{df}'] = sum(map(lambda x : x<5 and x>9, globals()[f'pH_{df}']))
+    globals() [f'DO_{df}'] = [x for x in globals()[f'{df}'][-24:]['DO']]
+    globals() [f'ab_DO_{df}'] = sum(map(lambda x : x<1, globals()[f'DO_{df}']))
+    globals() [f'NH4_{df}'] = [x for x in globals()[f'{df}'][-24:]['NH4']]
+    globals() [f'ab_NH4_{df}'] = sum(map(lambda x : x>100, globals()[f'NH4_{df}']))
+    globals() [f'NO3_{df}'] = [x for x in globals()[f'{df}'][-24:]['NO3']]
+df loop    globals() [f'ab_NO3_{df}'] = sum(map(lambda x : x>100, globals()[f'NO3_{df}']))
+    globals() [f'tgl_{df}'] = globals()[f'{df}']['logDate'].max()
 
 def status_onlimo(id_ol):
     st.header(id_ol)
-    st.write(globals() [f'query_{id_ol}'])
+    st.header(id_ol)
+    globals()[f'header_a_{id_ol}'], globals()[f'header_b_{id_ol}'] = st.columns(2)
+    
+
+    if globals()[f'{id_ol}']['logDate'].max() == datetime.today().strftime('%Y-%m-%d'): 
+        globals()[f'header_a_{id_ol}'].button(globals() [f'tgl_{id_ol}'], key=f'{id_ol}_a')
+        globals()[f'header_b_{id_ol}'].success('ONLINE')
+
+    elif datetime.strptime(globals() [f'tgl_{id_ol}'], '%Y-%m-%d') < datetime.today(): 
+        globals()[f'header_a_{id_ol}'].button(globals() [f'tgl_{id_ol}'], key=f'{id_ol}_b')
+        globals()[f'header_b_{id_ol}'].warning('OFFLINE')
+
+    else:
+        globals()[f'header_a_{id_ol}'].button(globals() [f'tgl_{id_ol}'], key=f'{id_ol}_b')                  
+        globals()[f'header_b_{id_ol}'].error('ERROR')   
+
+    col1, col2, col3, col4 = st.columns(4)
+    col1.metric('pH', globals() [f'ab_pH_{id_ol}'], '{0:.2f}'. format(globals() [f'pH_{id_ol}'][-1]))
+    col2.metric('DO', globals() [f'ab_DO_{id_ol}'], '{0:.2f}'. format(globals() [f'DO_{id_ol}'][-1]))
+    col3.metric('NH', globals() [f'ab_NH4_{id_ol}'], '{0:.2f}'. format(globals() [f'NH4_{id_ol}'][-1]))
+    col4.metric('NO', globals() [f'ab_NO3_{id_ol}'], '{0:.2f}'. format(globals() [f'NO3_{id_ol}'][-1]))
+
+    st.markdown("""<hr style="height:5px;border:none;color:#333;background-color:#333;" /> """, unsafe_allow_html=True)
 
 for x in id_list[:10]:
     status_onlimo(x)
