@@ -24,7 +24,7 @@ def run_query(query):
     return rows
 
 rows = run_query("SELECT * FROM `Ma.Sensor` where Station = 18")
-files_id = pd.read_csv('id_station.csv')
+files_id = pd.read_csv('id_stasiun.csv')
 id_list = files_id['CODE'].tolist()
 
 df = pandas_gbq.read_gbq("SELECT * FROM Ma.Sensor LIMIT 10", credentials = credentials)
