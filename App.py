@@ -56,7 +56,7 @@ def status_onlimo(id_ol):
         globals()[f'header_a_{id_ol}'].button(globals() [f'tgl_{id_ol}'], key=f'{id_ol}_a')
         globals()[f'header_b_{id_ol}'].success('ONLINE')
 
-    elif datetime.strptime(globals()[f'tgl_{id_ol}'].astype('str'), '%Y-%m-%d') < datetime.today().date(): 
+    elif globals()[f'tgl_{id_ol}'] < datetime.today().date(): 
         globals()[f'header_a_{id_ol}'].button(globals() [f'tgl_{id_ol}'], key=f'{id_ol}_b')
         globals()[f'header_b_{id_ol}'].warning('OFFLINE')
 
@@ -72,6 +72,8 @@ def status_onlimo(id_ol):
 
     st.markdown("""<hr style="height:5px;border:none;color:#333;background-color:#333;" /> """, unsafe_allow_html=True)
 
+st.write(tgl_OL41)
+st.write(type(tgl_OL41))
 for x in id_list[:10]:
     status_onlimo(x)
 #df = pd.DataFrame.from_dict(rows)
