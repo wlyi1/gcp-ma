@@ -56,7 +56,7 @@ def status_onlimo(id_ol):
         globals()[f'header_a_{id_ol}'].button(globals() [f'tgl_{id_ol}'], key=f'{id_ol}_a')
         globals()[f'header_b_{id_ol}'].success('ONLINE')
 
-    elif datetime.strptime(globals() [f'tgl_{id_ol}'], '%Y-%m-%d') < datetime.today(): 
+    elif globals() [f'tgl_{id_ol}'] < datetime.today(): 
         globals()[f'header_a_{id_ol}'].button(globals() [f'tgl_{id_ol}'], key=f'{id_ol}_b')
         globals()[f'header_b_{id_ol}'].warning('OFFLINE')
 
