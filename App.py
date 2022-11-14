@@ -24,17 +24,25 @@ def run_query(query):
     return rows
 
 rows = run_query("SELECT * FROM `Ma.Sensor` where Station = 18")
+files_id = pd.read_csv('id_station.csv')
+id_list = files_id['CODE'].tolist()
 
 df = pandas_gbq.read_gbq("SELECT * FROM Ma.Sensor LIMIT 10", credentials = credentials)
 # Print results.
 st.write(df)
 
-df = pd.DataFrame.from_dict(rows)
-st.write("Some wise words:")
-st.write(df)
+for i in id_list[:10]:
+    ID = files_id[files_id['CODE']==i].index.values+11
+    globals()[f'query_{i}']=pandas_qbg.read_gbq(f'select * from Ma.Sensor LIMIT 10 where Station={int(ID)}')
 
-run = client.query("SELECT * FROM 'Ma.Sensor' LIMIT 10")
-#df = run.to_dataframe()
+def status_onlimo(id_ol):
+    st.header(id_ol)
+    st.write(globals() [f'query_{id_ol}'])
+
+for x in id_list[:10]:
+    status_onlimo(x)
+#df = pd.DataFrame.from_dict(rows)
+#st.write("Some wise words:")
 #st.write(df)
 
 table_id = 'onlimo.Ma.Record'
