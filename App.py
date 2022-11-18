@@ -78,7 +78,7 @@ for x in id_list[:10]:
 #st.write(df)
 
 table_id = 'onlimo.Ma.Record'
-rows_to_insert = pd.DataFrame({u'Nama':'Waliy', u'Text':'Sukses'})
+rows_to_insert = pd.DataFrame({'Nama':'Waliy', 'Text':'Sukses'})
 but = st.button('add data')
 if but : 
     pandas_gbq.to_gbq(rows_to_insert, 'onlimo.Ma.Record', credentials=credentials)
