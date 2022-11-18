@@ -48,7 +48,7 @@ for df in id_list[:10]:
 
 def status_onlimo(id_ol):
     st.header(id_ol)
-     globals()[f'header_a_{id_ol}'], globals()[f'header_b_{id_ol}'] = st.columns(2)
+    globals()[f'header_a_{id_ol}'], globals()[f'header_b_{id_ol}'] = st.columns(2)
     
 
     if globals()[f'{id_ol}']['logDate'].max() == datetime.today().strftime('%Y-%m-%d'): 
